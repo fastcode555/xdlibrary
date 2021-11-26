@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+void showSnackBar(BuildContext context, String msg) {
+  Scaffold.of(context).showSnackBar(SnackBar(content: new Text(msg)));
+}
+
 class PinSvg extends StatelessWidget {
   final String svg;
   final double? width;
@@ -97,5 +101,14 @@ class CircleWidget extends StatelessWidget {
       width: width ?? height ?? (radius != null ? radius! * 2 : null),
       height: height ?? width ?? (radius != null ? radius! * 2 : null),
     );
+  }
+}
+
+class PinImageMark extends StatelessWidget {
+  const PinImageMark({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox();
   }
 }
