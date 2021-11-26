@@ -16,7 +16,13 @@ class PinSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(svg, width: width, height: height, allowDrawingOutsideViewBox: allowDrawingOutsideViewBox);
+    return SvgPicture.asset(
+      svg,
+      width: width,
+      height: height,
+      fit: BoxFit.fill,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+    );
   }
 }
 
@@ -37,7 +43,13 @@ class PinFillSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(svg, width: width, height: height, allowDrawingOutsideViewBox: allowDrawingOutsideViewBox);
+    return SvgPicture.asset(
+      svg,
+      width: width,
+      height: height,
+      fit: BoxFit.fill,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+    );
   }
 }
 
