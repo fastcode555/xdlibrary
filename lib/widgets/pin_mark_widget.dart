@@ -71,6 +71,7 @@ class PinContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final Widget? child;
+  final AlignmentGeometry? alignment;
 
   const PinContainer({
     this.child,
@@ -78,11 +79,18 @@ class PinContainer extends StatelessWidget {
     this.decoration,
     this.width = double.infinity,
     this.height = double.infinity,
+    this.alignment = Alignment.center,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: child, decoration: decoration, width: width, height: height);
+    return Container(
+      child: child,
+      decoration: decoration,
+      width: width,
+      height: height,
+      alignment: alignment,
+    );
   }
 }
 
@@ -122,5 +130,16 @@ class PinImageMark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox();
+  }
+}
+
+class PinRelativeMark extends StatelessWidget {
+  final List<Widget> children;
+
+  const PinRelativeMark({Key? key, required this.children}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: children);
   }
 }

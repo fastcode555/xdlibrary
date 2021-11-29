@@ -14,6 +14,7 @@ class PinButton extends StatelessWidget {
   final String? title;
   final double? radius;
   final Decoration? decoration;
+  final EdgeInsetsGeometry? padding;
 
   PinButton({
     this.width,
@@ -24,6 +25,7 @@ class PinButton extends StatelessWidget {
     this.borderRadius,
     this.radius,
     this.decoration,
+    this.padding,
     @required this.child,
   });
 
@@ -38,6 +40,7 @@ class PinButton extends StatelessWidget {
     }
     return Container(
       decoration: decoration,
+      padding: padding,
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
@@ -45,15 +48,7 @@ class PinButton extends StatelessWidget {
           onTap: onPressed,
           child: ConstrainedBox(
             constraints: BoxConstraints.tightFor(height: height, width: width),
-            child: Center(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF2D2D2D),
-                ),
-                child: child ?? Center(child: Text(title ?? "")),
-              ),
-            ),
+            child: Center(child: child ?? Center(child: Text(title ?? ""))),
           ),
         ),
       ),
