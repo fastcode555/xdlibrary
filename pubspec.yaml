@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   adobe_xd: ^2.0.0+1
   infinity_core:
-    path: ../infinity/infinity_core
+    path: ../../infinity/infinity_core
 
 dependency_overrides:
   flutter_svg: ^0.21.0+1

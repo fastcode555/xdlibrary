@@ -381,7 +381,7 @@ packages:
   infinity_core:
     dependency: "direct main"
     description:
-      path: "../infinity/infinity_core"
+      path: "../../infinity/infinity_core"
       relative: true
     source: path
     version: "1.0.5+6"
