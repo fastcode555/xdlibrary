@@ -47,7 +47,7 @@ class PinFillSvg extends StatelessWidget {
       svg,
       width: width,
       height: height,
-      fit: BoxFit.fill,
+      fit: BoxFit.contain,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
   }
@@ -72,6 +72,7 @@ class PinContainer extends StatelessWidget {
   final double? height;
   final Widget? child;
   final AlignmentGeometry? alignment;
+  final Color? color;
 
   const PinContainer({
     this.child,
@@ -80,6 +81,7 @@ class PinContainer extends StatelessWidget {
     this.width = double.infinity,
     this.height = double.infinity,
     this.alignment = Alignment.center,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -90,6 +92,7 @@ class PinContainer extends StatelessWidget {
       width: width,
       height: height,
       alignment: alignment,
+      color: color,
     );
   }
 }
