@@ -20,7 +20,7 @@ class PinSvg extends StatelessWidget {
       svg,
       width: width,
       height: height,
-      fit: BoxFit.fill,
+      fit: BoxFit.contain,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
   }
