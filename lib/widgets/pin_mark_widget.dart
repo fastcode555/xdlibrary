@@ -8,11 +8,19 @@ void showSnackBar(BuildContext context, String msg) {
 class PinSvg extends StatelessWidget {
   final String svg;
   final double? width;
+  final Color? color;
 
   final double? height;
   final bool allowDrawingOutsideViewBox;
 
-  const PinSvg(this.svg, {Key? key, this.width, this.height, this.allowDrawingOutsideViewBox = true}) : super(key: key);
+  const PinSvg(
+    this.svg, {
+    Key? key,
+    this.width,
+    this.height,
+    this.allowDrawingOutsideViewBox = true,
+    this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +29,7 @@ class PinSvg extends StatelessWidget {
       width: width,
       height: height,
       fit: BoxFit.contain,
+      color: color,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
   }
@@ -29,7 +38,7 @@ class PinSvg extends StatelessWidget {
 class PinFillSvg extends StatelessWidget {
   final String svg;
   final double? width;
-
+  final Color? color;
   final double? height;
   final bool allowDrawingOutsideViewBox;
 
@@ -38,6 +47,7 @@ class PinFillSvg extends StatelessWidget {
     Key? key,
     this.width = double.infinity,
     this.height = double.infinity,
+    this.color,
     this.allowDrawingOutsideViewBox = true,
   }) : super(key: key);
 
@@ -47,6 +57,7 @@ class PinFillSvg extends StatelessWidget {
       svg,
       width: width,
       height: height,
+      color: color,
       fit: BoxFit.contain,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
