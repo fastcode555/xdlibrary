@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PinButton extends StatelessWidget {
@@ -36,6 +37,9 @@ class PinButton extends StatelessWidget {
       BoxDecoration boxDecoration = decoration as BoxDecoration;
       if (boxDecoration.borderRadius is BorderRadius) {
         _borderRadius = boxDecoration.borderRadius as BorderRadius;
+      }
+      if (boxDecoration.shape == BoxShape.circle) {
+        _borderRadius = BorderRadius.all(Radius.circular(9999));
       }
     }
     return Container(
