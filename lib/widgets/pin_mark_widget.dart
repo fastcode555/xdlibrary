@@ -157,3 +157,23 @@ class PinRelativeMark extends StatelessWidget {
     return Stack(children: children);
   }
 }
+
+class PinScaffold extends StatelessWidget {
+  final Widget body;
+  final Color? backgroundColor;
+
+  const PinScaffold({Key? key, required this.body, this.backgroundColor}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 1500,
+          child: body,
+        ),
+      ),
+    );
+  }
+}
