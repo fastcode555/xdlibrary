@@ -66,14 +66,19 @@ class PinFillSvg extends StatelessWidget {
 
 class PinStack extends StatelessWidget {
   final Decoration? decoration;
+  final Color? color;
   final List<Widget> children;
 
-  const PinStack({required this.children, Key? key, this.decoration}) : super(key: key);
+  const PinStack({required this.children, Key? key, this.decoration, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (decoration == null) return Stack(children: children);
-    return Container(decoration: decoration, child: Stack(children: children));
+    return Container(
+      decoration: decoration,
+      color: color,
+      child: Stack(children: children),
+    );
   }
 }
 
