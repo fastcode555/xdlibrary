@@ -16,6 +16,7 @@ class PinButton extends StatelessWidget {
   final double? radius;
   final Decoration? decoration;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
 
   PinButton({
     this.width,
@@ -27,6 +28,7 @@ class PinButton extends StatelessWidget {
     this.radius,
     this.decoration,
     this.padding,
+    this.margin,
     @required this.child,
   });
 
@@ -45,6 +47,7 @@ class PinButton extends StatelessWidget {
     return Container(
       decoration: decoration,
       padding: padding,
+      margin: margin,
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
