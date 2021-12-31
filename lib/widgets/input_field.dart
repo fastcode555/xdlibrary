@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_core/core.dart';
 
@@ -46,6 +47,8 @@ class InputField extends StatefulWidget {
   final InputBorder? inputBorder;
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
+  final Widget? rightWidget;
+  final TextAlign textAlign;
 
   InputField.search({
     Key? key,
@@ -65,12 +68,13 @@ class InputField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.leftWidget,
+    this.rightWidget,
     this.leftIconEnable = true,
     this.nonDecoration = false,
     this.backGroundColor,
     this.keyboardType = TextInputType.text,
     this.onEditingComplete,
-    this.contentPadding = 12,
+    this.contentPadding = 16,
     this.inputFormatters,
     this.maxLength,
     this.cancelCallBack,
@@ -81,6 +85,7 @@ class InputField extends StatefulWidget {
     this.padding,
     this.readOnly = false,
     this.onChanged,
+    this.textAlign = TextAlign.start,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -103,9 +108,10 @@ class InputField extends StatefulWidget {
     this.focusNode,
     this.style,
     this.hintStyle,
-    this.leftWidget,
-    this.backGroundColor,
     this.leftIconEnable = false,
+    this.leftWidget,
+    this.rightWidget,
+    this.backGroundColor,
     this.nonDecoration = false,
     this.contentPadding = 12,
     this.inputFormatters,
@@ -120,6 +126,7 @@ class InputField extends StatefulWidget {
     this.padding,
     this.readOnly = false,
     this.onChanged,
+    this.textAlign = TextAlign.start,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -143,6 +150,7 @@ class InputField extends StatefulWidget {
     this.hintStyle,
     this.focusNode,
     this.leftWidget,
+    this.rightWidget,
     this.backGroundColor,
     this.leftIconEnable = false,
     this.nonDecoration = true,
@@ -159,6 +167,7 @@ class InputField extends StatefulWidget {
     this.padding,
     this.readOnly = false,
     this.onChanged,
+    this.textAlign = TextAlign.start,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -249,7 +258,7 @@ class _InputFieldState extends State<InputField> {
               child: TextField(
                 readOnly: widget.readOnly!,
                 focusNode: _focusNode,
-                textAlign: TextAlign.start,
+                textAlign: widget.textAlign,
                 onEditingComplete:
                     widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
                 controller: _controller,
@@ -291,6 +300,7 @@ class _InputFieldState extends State<InputField> {
               ),
             ),
             _buildCancelButton(),
+            if (widget.rightWidget != null) ...[SizedBox(width: 8), widget.rightWidget!]
           ],
         ));
   }
