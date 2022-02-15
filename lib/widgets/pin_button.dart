@@ -48,6 +48,7 @@ class PinButton extends StatelessWidget {
       decoration: decoration,
       padding: padding,
       margin: margin,
+      alignment: Alignment.center,
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
