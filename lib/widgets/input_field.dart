@@ -28,6 +28,7 @@ class InputField extends StatefulWidget {
   final Widget? leftWidget;
   final TextStyle? style;
   final TextStyle? hintStyle;
+  final Widget? clearWidget;
 
   final Color? backGroundColor;
   final bool nonDecoration;
@@ -86,6 +87,7 @@ class InputField extends StatefulWidget {
     this.readOnly = false,
     this.onChanged,
     this.textAlign = TextAlign.start,
+    this.clearWidget,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -127,6 +129,7 @@ class InputField extends StatefulWidget {
     this.readOnly = false,
     this.onChanged,
     this.textAlign = TextAlign.start,
+    this.clearWidget,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -168,6 +171,7 @@ class InputField extends StatefulWidget {
     this.readOnly = false,
     this.onChanged,
     this.textAlign = TextAlign.start,
+    this.clearWidget,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -310,7 +314,7 @@ class _InputFieldState extends State<InputField> {
         ? GestureDetector(
             behavior: HitTestBehavior.translucent,
             child: Container(
-              child: Icon(Icons.cancel, size: 16, color: _iconColor),
+              child: widget.clearWidget ?? Icon(Icons.cancel, size: 16, color: _iconColor),
             ),
             onTap: () {
               // 保证在组件build的第一帧时才去触发取消清空内
