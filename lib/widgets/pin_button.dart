@@ -17,6 +17,7 @@ class PinButton extends StatelessWidget {
   final Decoration? decoration;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
+  final Color? color;
 
   PinButton({
     this.width,
@@ -29,6 +30,7 @@ class PinButton extends StatelessWidget {
     this.decoration,
     this.padding,
     this.margin,
+    this.color,
     @required this.child,
   });
 
@@ -47,6 +49,7 @@ class PinButton extends StatelessWidget {
     return Container(
       decoration: decoration,
       padding: padding,
+      color: color,
       margin: margin,
       alignment: Alignment.center,
       child: Material(
