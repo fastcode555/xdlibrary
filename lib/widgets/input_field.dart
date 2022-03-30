@@ -50,6 +50,7 @@ class InputField extends StatefulWidget {
   final InputBorder? focusedBorder;
   final Widget? rightWidget;
   final TextAlign textAlign;
+  final bool showClear;
 
   InputField.search({
     Key? key,
@@ -88,6 +89,7 @@ class InputField extends StatefulWidget {
     this.onChanged,
     this.textAlign = TextAlign.start,
     this.clearWidget,
+    this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -130,6 +132,7 @@ class InputField extends StatefulWidget {
     this.onChanged,
     this.textAlign = TextAlign.start,
     this.clearWidget,
+    this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -172,6 +175,7 @@ class InputField extends StatefulWidget {
     this.onChanged,
     this.textAlign = TextAlign.start,
     this.clearWidget,
+    this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -304,13 +308,13 @@ class _InputFieldState extends State<InputField> {
               ),
             ),
             _buildCancelButton(),
-            if (widget.rightWidget != null) ...[SizedBox(width: 8), widget.rightWidget!]
+            if (widget.rightWidget != null) ...[const SizedBox(width: 8), widget.rightWidget!]
           ],
         ));
   }
 
   _buildCancelButton() {
-    return _isShowClean
+    return _isShowClean && widget.showClear
         ? GestureDetector(
             behavior: HitTestBehavior.translucent,
             child: Container(
@@ -328,7 +332,7 @@ class _InputFieldState extends State<InputField> {
               });
             },
           )
-        : SizedBox();
+        : const SizedBox();
   }
 
   get _iconColor => _focusNode.hasFocus ? Colors.black87 : Colors.black12;
