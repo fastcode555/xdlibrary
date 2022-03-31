@@ -120,6 +120,7 @@ class CircleWidget extends StatelessWidget {
   final Widget? child;
   final double? radius;
   final EdgeInsetsGeometry? padding;
+  final AlignmentGeometry? alignment;
 
   const CircleWidget(
     this.color, {
@@ -129,6 +130,7 @@ class CircleWidget extends StatelessWidget {
     this.height,
     this.radius,
     this.padding,
+    this.alignment = Alignment.center,
   }) : super(key: key);
 
   @override
@@ -136,6 +138,7 @@ class CircleWidget extends StatelessWidget {
     return Container(
       child: child,
       padding: padding,
+      alignment: alignment,
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
