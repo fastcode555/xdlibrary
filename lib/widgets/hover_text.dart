@@ -8,6 +8,9 @@ class HoverText extends StatefulWidget {
   final String text;
   final Color hoverColor;
   final VoidCallback? onPressed;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final int? maxLines;
 
   const HoverText(
     this.text, {
@@ -15,6 +18,9 @@ class HoverText extends StatefulWidget {
     this.style,
     this.hoverColor = Colors.red,
     this.onPressed,
+    this.textAlign,
+    this.textDirection,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -41,7 +47,13 @@ class _HoverTextState extends State<HoverText> {
       onExit: _onExit,
       onHover: _onHover,
       child: GestureDetector(
-        child: Text(widget.text, style: _selectStyle),
+        child: Text(
+          widget.text,
+          style: _selectStyle,
+          textAlign: widget.textAlign,
+          textDirection: widget.textDirection,
+          maxLines: widget.maxLines,
+        ),
         onTap: widget.onPressed,
       ),
     );
