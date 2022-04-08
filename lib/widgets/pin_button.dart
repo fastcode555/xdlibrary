@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_core/common/base_view.dart';
 
-class PinButton extends StatelessWidget {
+class PinButton extends BaseView {
   // 按钮宽高
   final double? width;
   final double? height;
@@ -19,6 +19,10 @@ class PinButton extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final Color? color;
 
+  double? _width = null;
+  double? _height = null;
+  bool _isWrap = false;
+
   PinButton({
     this.width,
     this.titleId,
@@ -34,8 +38,54 @@ class PinButton extends StatelessWidget {
     @required this.child,
   });
 
+  PinButton.wrap({
+    this.width,
+    this.titleId,
+    this.title,
+    this.height,
+    this.onPressed,
+    this.borderRadius,
+    this.radius,
+    this.decoration,
+    this.padding,
+    this.margin,
+    this.color,
+    @required this.child,
+  }) : _isWrap = true;
+
+  @override
+  void onInit() {
+    super.onInit();
+    if (width == null && _isWrap) {
+      if (child is Text) {
+        Text textWidget = child as Text;
+        if (textWidget.style != null) {
+          final TextPainter textPainter = TextPainter(
+              text: TextSpan(text: textWidget.data, style: textWidget.style),
+              maxLines: 1,
+              textDirection: TextDirection.ltr)
+            ..layout(
+              minWidth: 0,
+              maxWidth: double.infinity,
+            );
+          if (padding != null && padding is EdgeInsets) {
+            EdgeInsets insets = padding as EdgeInsets;
+            _width = textPainter.width + insets.left + insets.right;
+            _height = height ?? (textPainter.height + insets.top + insets.bottom);
+          } else {
+            _width = textPainter.width + 14;
+            _height = height ?? (textPainter.height + 6);
+          }
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_isWrap && _width == null) {
+      onInit();
+    }
     BorderRadius? _borderRadius;
     if (radius == null && decoration != null && decoration is BoxDecoration) {
       BoxDecoration boxDecoration = decoration as BoxDecoration;
@@ -51,6 +101,8 @@ class PinButton extends StatelessWidget {
       padding: padding,
       color: color,
       margin: margin,
+      height: height ?? _height,
+      width: width ?? _width,
       alignment: Alignment.center,
       child: Material(
         type: MaterialType.transparency,
@@ -58,8 +110,8 @@ class PinButton extends StatelessWidget {
           borderRadius: borderRadius ?? _borderRadius,
           onTap: onPressed,
           child: ConstrainedBox(
-            constraints: BoxConstraints.tightFor(height: height, width: width),
-            child: Center(child: child ?? Center(child: Text(title ?? ""))),
+            constraints: BoxConstraints.tightFor(),
+            child: Center(child: child ?? Text(title ?? "")),
           ),
         ),
       ),

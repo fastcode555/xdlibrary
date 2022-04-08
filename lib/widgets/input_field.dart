@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_core/core.dart';
 
@@ -25,7 +23,7 @@ class InputField extends StatefulWidget {
   final BoxDecoration? focusDecoration;
   final bool leftIconEnable;
   final FocusNode? focusNode;
-  final Widget? leftWidget;
+  final Widget? leftWidgetBuilder;
   final TextStyle? style;
   final TextStyle? hintStyle;
   final Widget? clearWidget;
@@ -51,8 +49,9 @@ class InputField extends StatefulWidget {
   final Widget? rightWidget;
   final TextAlign textAlign;
   final bool showClear;
+  final String? labelText;
 
-  InputField.search({
+  const InputField.search({
     Key? key,
     this.text,
     this.obscureText = false,
@@ -69,7 +68,7 @@ class InputField extends StatefulWidget {
     this.focusNode,
     this.style,
     this.hintStyle,
-    this.leftWidget,
+    this.leftWidgetBuilder,
     this.rightWidget,
     this.leftIconEnable = true,
     this.nonDecoration = false,
@@ -89,13 +88,14 @@ class InputField extends StatefulWidget {
     this.onChanged,
     this.textAlign = TextAlign.start,
     this.clearWidget,
+    this.labelText,
     this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
   }) : super(key: key);
 
-  InputField({
+  const InputField({
     Key? key,
     this.text,
     this.obscureText = false,
@@ -113,7 +113,7 @@ class InputField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.leftIconEnable = false,
-    this.leftWidget,
+    this.leftWidgetBuilder,
     this.rightWidget,
     this.backGroundColor,
     this.nonDecoration = false,
@@ -132,13 +132,14 @@ class InputField extends StatefulWidget {
     this.onChanged,
     this.textAlign = TextAlign.start,
     this.clearWidget,
+    this.labelText,
     this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
   }) : super(key: key);
 
-  InputField.noneDecoration({
+  const InputField.noneDecoration({
     Key? key,
     this.text,
     this.obscureText = false,
@@ -155,7 +156,7 @@ class InputField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.focusNode,
-    this.leftWidget,
+    this.leftWidgetBuilder,
     this.rightWidget,
     this.backGroundColor,
     this.leftIconEnable = false,
@@ -176,9 +177,54 @@ class InputField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.clearWidget,
     this.showClear = true,
+    this.labelText,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
+  }) : super(key: key);
+
+  const InputField.border({
+    Key? key,
+    this.text,
+    this.obscureText = false,
+    this.decoration,
+    this.focusDecoration,
+    this.maxLines = 1,
+    this.height = 48,
+    this.textInputAction = TextInputAction.next,
+    this.normalColor,
+    this.focusColor = const Color(0xfff5f5f7),
+    this.onSubmitted,
+    this.controller,
+    this.hintText,
+    this.style,
+    this.hintStyle,
+    this.focusNode,
+    this.leftWidgetBuilder,
+    this.rightWidget,
+    this.backGroundColor,
+    this.leftIconEnable = false,
+    this.nonDecoration = true,
+    this.keyboardType = TextInputType.text,
+    this.contentPadding = 12,
+    this.onEditingComplete,
+    this.inputFormatters,
+    this.cancelCallBack,
+    this.maxLength,
+    this.scopeNode,
+    this.exceedLimitTip,
+    this.enable = true,
+    this.cursorColor,
+    this.padding,
+    this.readOnly = false,
+    this.onChanged,
+    this.textAlign = TextAlign.start,
+    this.clearWidget,
+    this.showClear = true,
+    this.labelText,
+    this.inputBorder = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+    this.enabledBorder = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+    this.focusedBorder = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
   }) : super(key: key);
 
   @override
@@ -206,7 +252,7 @@ class _InputFieldState extends State<InputField> {
     _controller.addListener(() {
       //自己实现限制输入长度
       if (widget.maxLength != null && widget.maxLength! > 0) {
-        if (_controller.text != null && _controller.text.length > widget.maxLength!) {
+        if (_controller.text.length > widget.maxLength!) {
           //限制提醒
           if (widget.exceedLimitTip != null) showToast(widget.exceedLimitTip ?? '');
           _controller.text = _controller.text.substring(0, widget.maxLength);
@@ -225,8 +271,8 @@ class _InputFieldState extends State<InputField> {
     });
   }
 
-  Future<Null> _focusNodeListener() async {
-    if (_focusNode.hasFocus && _controller.text != null && _controller.text.isNotEmpty) {
+  Future<void> _focusNodeListener() async {
+    if (_focusNode.hasFocus && _controller.text.isNotEmpty) {
       setState(() {
         _isShowClean = true;
       });
@@ -239,7 +285,7 @@ class _InputFieldState extends State<InputField> {
 
   @override
   void didUpdateWidget(InputField oldWidget) {
-    if (_focusNode.hasFocus && _controller.text != null && _controller.text.isNotEmpty) {
+    if (_focusNode.hasFocus && _controller.text.isNotEmpty) {
       _isShowClean = true;
     } else {
       _isShowClean = false;
@@ -254,66 +300,68 @@ class _InputFieldState extends State<InputField> {
 
   _buildTextField() {
     return Container(
-        height: widget.height,
-        padding: EdgeInsets.symmetric(horizontal: widget.contentPadding),
-        decoration: widget.nonDecoration ? null : _itemDecoration,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (widget.leftIconEnable) widget.leftWidget ?? Icon(Icons.search, size: 16, color: _iconColor),
-            if (widget.leftIconEnable) SizedBox(width: 5),
-            Expanded(
-              child: TextField(
-                readOnly: widget.readOnly!,
-                focusNode: _focusNode,
-                textAlign: widget.textAlign,
-                onEditingComplete:
-                    widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
-                controller: _controller,
-                //双击或长按报错
-                //enableInteractiveSelection: false,
-                maxLines: widget.maxLines,
-                style: widget.style ?? TextStyle(color: Colors.black),
-                obscureText: widget.obscureText,
-                keyboardType: widget.keyboardType,
-                //maxLength: widget.maxLength,自带的带有计数器
-                cursorColor: widget.cursorColor,
-                enabled: widget.enable,
-                textInputAction: widget.textInputAction,
-                //关闭自动联想功能,特别是输入密码的时候
-                autocorrect: !Platform.isIOS,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 5),
-                  focusColor: widget.focusColor,
-                  hintStyle: widget.hintStyle == null ? TextStyle(color: Colors.black12) : widget.hintStyle,
-                  hintText: !_showHint ? '' : (widget.hintText ?? ""),
-                  border: widget.inputBorder,
-                  enabledBorder: widget.enabledBorder,
-                  focusedBorder: widget.focusedBorder,
-                ),
-                onChanged: (character) {
-                  if (widget.onChanged != null) {
-                    if (timer != null && timer!.isActive) timer!.cancel();
-                    timer = Timer(Duration(seconds: 1), () {
-                      widget.onChanged?.call(character);
-                    });
-                  }
-                  setState(() => _isShowClean = character.isNotEmpty);
-                },
-                inputFormatters: widget.inputFormatters,
-                onSubmitted: (v) {
-                  setState(() => _isShowClean = false);
-                  widget.onSubmitted?.call(v);
-                },
+      height: widget.height,
+      padding: EdgeInsets.only(left: widget.contentPadding),
+      decoration: widget.nonDecoration ? null : _itemDecoration,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (widget.leftIconEnable) widget.leftWidgetBuilder ?? Icon(Icons.search, size: 16, color: _iconColor),
+          if (widget.leftIconEnable) const SizedBox(width: 5),
+          Expanded(
+            child: TextField(
+              readOnly: widget.readOnly!,
+              focusNode: _focusNode,
+              textAlign: widget.textAlign,
+              onEditingComplete:
+                  widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
+              controller: _controller,
+              //双击或长按报错
+              //enableInteractiveSelection: false,
+              maxLines: widget.maxLines,
+              style: widget.style ?? const TextStyle(color: Colors.black),
+              obscureText: widget.obscureText,
+              keyboardType: widget.keyboardType,
+              //maxLength: widget.maxLength,自带的带有计数器
+              cursorColor: widget.cursorColor,
+              enabled: widget.enable,
+              textInputAction: widget.textInputAction,
+              //关闭自动联想功能,特别是输入密码的时候
+              autocorrect: !Platform.isIOS,
+              decoration: InputDecoration(
+                focusColor: widget.focusColor,
+                contentPadding: widget.labelText == "" ? null : const EdgeInsets.only(top: 5),
+                labelText: widget.labelText,
+                labelStyle: widget.hintStyle,
+                hintStyle: widget.hintStyle,
+                hintText: !_showHint ? null : widget.hintText,
+                border: widget.inputBorder,
+                enabledBorder: widget.enabledBorder,
+                focusedBorder: widget.focusedBorder,
+                suffixIcon: _buildSuffixIcon(),
               ),
+              onChanged: (character) {
+                if (widget.onChanged != null) {
+                  if (timer != null && timer!.isActive) timer!.cancel();
+                  timer = Timer(const Duration(seconds: 1), () {
+                    widget.onChanged?.call(character);
+                  });
+                }
+                setState(() => _isShowClean = character.isNotEmpty);
+              },
+              inputFormatters: widget.inputFormatters,
+              onSubmitted: (v) {
+                setState(() => _isShowClean = false);
+                widget.onSubmitted?.call(v);
+              },
             ),
-            _buildCancelButton(),
-            if (widget.rightWidget != null) ...[const SizedBox(width: 8), widget.rightWidget!]
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
-  _buildCancelButton() {
+  Widget? _buildCancelButton() {
     return _isShowClean && widget.showClear
         ? GestureDetector(
             behavior: HitTestBehavior.translucent,
@@ -332,7 +380,21 @@ class _InputFieldState extends State<InputField> {
               });
             },
           )
-        : const SizedBox();
+        : null;
+  }
+
+  Widget? _buildSuffixIcon() {
+    Widget? cancelWidget = _buildCancelButton();
+    if (widget.rightWidget != null && cancelWidget != null) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [cancelWidget, widget.rightWidget!],
+      );
+    }
+    if (widget.rightWidget != null) return widget.rightWidget;
+    if (cancelWidget != null) return cancelWidget;
+
+    return null;
   }
 
   get _iconColor => _focusNode.hasFocus ? Colors.black87 : Colors.black12;
@@ -342,13 +404,13 @@ class _InputFieldState extends State<InputField> {
       return widget.focusDecoration ??
           BoxDecoration(
             color: widget.focusColor,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
           );
     } else {
       return widget.decoration ??
           BoxDecoration(
             color: _focusNode.hasFocus ? widget.focusColor : (widget.normalColor ?? widget.focusColor),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
           );
     }
   }
