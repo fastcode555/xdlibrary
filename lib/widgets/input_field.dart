@@ -27,6 +27,7 @@ class InputField extends StatefulWidget {
   final TextStyle? style;
   final TextStyle? hintStyle;
   final Widget? clearWidget;
+  final EdgeInsetsGeometry? lablePadding;
 
   final Color? backGroundColor;
   final bool nonDecoration;
@@ -89,6 +90,7 @@ class InputField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.clearWidget,
     this.labelText,
+    this.lablePadding,
     this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -133,6 +135,7 @@ class InputField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.clearWidget,
     this.labelText,
+    this.lablePadding,
     this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -162,7 +165,7 @@ class InputField extends StatefulWidget {
     this.leftIconEnable = false,
     this.nonDecoration = true,
     this.keyboardType = TextInputType.text,
-    this.contentPadding = 12,
+    this.contentPadding = 0,
     this.onEditingComplete,
     this.inputFormatters,
     this.cancelCallBack,
@@ -178,6 +181,7 @@ class InputField extends StatefulWidget {
     this.clearWidget,
     this.showClear = true,
     this.labelText,
+    this.lablePadding,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -206,7 +210,7 @@ class InputField extends StatefulWidget {
     this.leftIconEnable = false,
     this.nonDecoration = true,
     this.keyboardType = TextInputType.text,
-    this.contentPadding = 12,
+    this.contentPadding = 0,
     this.onEditingComplete,
     this.inputFormatters,
     this.cancelCallBack,
@@ -222,9 +226,11 @@ class InputField extends StatefulWidget {
     this.clearWidget,
     this.showClear = true,
     this.labelText,
-    this.inputBorder = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-    this.enabledBorder = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-    this.focusedBorder = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+    this.lablePadding,
+    //为空就会使用成默认的const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+    this.inputBorder,
+    this.enabledBorder,
+    this.focusedBorder,
   }) : super(key: key);
 
   @override
@@ -330,7 +336,7 @@ class _InputFieldState extends State<InputField> {
               autocorrect: !Platform.isIOS,
               decoration: InputDecoration(
                 focusColor: widget.focusColor,
-                contentPadding: widget.labelText == "" ? null : const EdgeInsets.only(top: 5),
+                contentPadding: widget.lablePadding ?? (widget.labelText == "" ? null : const EdgeInsets.only(top: 5)),
                 labelText: widget.labelText,
                 labelStyle: widget.hintStyle,
                 hintStyle: widget.hintStyle,
