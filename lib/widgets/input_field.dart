@@ -48,6 +48,8 @@ class InputField extends StatefulWidget {
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
   final Widget? rightWidget;
+  //当clearWidget显示或消失都会引起变化，故当clearWidget不显示时，用replacement占位
+  final Widget? replacement;
   final TextAlign textAlign;
   final bool showClear;
   final String? labelText;
@@ -91,6 +93,7 @@ class InputField extends StatefulWidget {
     this.clearWidget,
     this.labelText,
     this.lablePadding,
+    this.replacement,
     this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -136,6 +139,7 @@ class InputField extends StatefulWidget {
     this.clearWidget,
     this.labelText,
     this.lablePadding,
+    this.replacement,
     this.showClear = true,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -182,6 +186,7 @@ class InputField extends StatefulWidget {
     this.showClear = true,
     this.labelText,
     this.lablePadding,
+    this.replacement,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -227,6 +232,7 @@ class InputField extends StatefulWidget {
     this.showClear = true,
     this.labelText,
     this.lablePadding,
+    this.replacement,
     //为空就会使用成默认的const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
     this.inputBorder,
     this.enabledBorder,
@@ -400,7 +406,7 @@ class _InputFieldState extends State<InputField> {
     if (widget.rightWidget != null) return widget.rightWidget;
     if (cancelWidget != null) return cancelWidget;
 
-    return null;
+    return widget.replacement ?? const SizedBox(height: 16);
   }
 
   get _iconColor => _focusNode.hasFocus ? Colors.black87 : Colors.black12;
