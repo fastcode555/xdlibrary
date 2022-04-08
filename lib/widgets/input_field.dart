@@ -48,6 +48,7 @@ class InputField extends StatefulWidget {
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
   final Widget? rightWidget;
+
   //当clearWidget显示或消失都会引起变化，故当clearWidget不显示时，用replacement占位
   final Widget? replacement;
   final TextAlign textAlign;
@@ -396,17 +397,15 @@ class _InputFieldState extends State<InputField> {
   }
 
   Widget? _buildSuffixIcon() {
-    Widget? cancelWidget = _buildCancelButton();
-    if (widget.rightWidget != null && cancelWidget != null) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [cancelWidget, widget.rightWidget!],
-      );
-    }
-    if (widget.rightWidget != null) return widget.rightWidget;
-    if (cancelWidget != null) return cancelWidget;
-
-    return widget.replacement ?? const SizedBox(height: 16);
+    Widget cancelWidget = _buildCancelButton() ?? widget.replacement ?? const SizedBox(height: 16);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        cancelWidget,
+        if (widget.rightWidget != null) widget.rightWidget!,
+      ],
+    );
   }
 
   get _iconColor => _focusNode.hasFocus ? Colors.black87 : Colors.black12;
