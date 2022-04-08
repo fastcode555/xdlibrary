@@ -32,7 +32,7 @@ dependencies:
   infinity_core:
     git:
       url: https://gitlab.initcapp.com/app-dev/infinity_core
-      ref: develop_2.1.0
+      ref: develop
 
 
 dev_dependencies:
