@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_core/core.dart';
 
-/// @date 2020/8/22
-/// describe:
-
 class InputField extends StatefulWidget {
   final String? text;
   final String? hintText;

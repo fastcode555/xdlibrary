@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_core/common/base_view.dart';
 
-class PinButton extends BaseView {
+class PinButton extends StatelessWidget {
   // 按钮宽高
   final double? width;
   final double? height;
@@ -19,8 +18,8 @@ class PinButton extends BaseView {
   final EdgeInsetsGeometry? margin;
   final Color? color;
 
-  double? _width = null;
-  double? _height = null;
+  double? _width;
+  double? _height;
   bool _isWrap = false;
 
   PinButton({
@@ -53,9 +52,7 @@ class PinButton extends BaseView {
     @required this.child,
   }) : _isWrap = true;
 
-  @override
-  void onInit() {
-    super.onInit();
+  void _onInit() {
     if (width == null && _isWrap) {
       if (child is Text) {
         Text textWidget = child as Text;
@@ -84,7 +81,7 @@ class PinButton extends BaseView {
   @override
   Widget build(BuildContext context) {
     if (_isWrap && _width == null) {
-      onInit();
+      _onInit();
     }
     BorderRadius? _borderRadius;
     if (radius == null && decoration != null && decoration is BoxDecoration) {
@@ -109,10 +106,7 @@ class PinButton extends BaseView {
         child: InkWell(
           borderRadius: borderRadius ?? _borderRadius,
           onTap: onPressed,
-          child: ConstrainedBox(
-            constraints: BoxConstraints.tightFor(),
-            child: Center(child: child ?? Text(title ?? "")),
-          ),
+          child: Center(child: child ?? Text(title ?? "")),
         ),
       ),
     );
