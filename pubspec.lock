@@ -397,11 +397,9 @@ packages:
   infinity_core:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "develop_2.1.0"
-      resolved-ref: fb5ffd1e5149a020954d36144cba04506f2fce77
-      url: "https://gitlab.initcapp.com/app-dev/infinity_core"
-    source: git
+      path: "../../infinity/infinity_core"
+      relative: true
+    source: path
     version: "1.0.8+9"
   js:
     dependency: transitive

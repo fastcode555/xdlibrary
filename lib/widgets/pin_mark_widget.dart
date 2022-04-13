@@ -10,29 +10,36 @@ class PinSvg extends StatelessWidget {
   final String svg;
   final double? width;
   final Color? color;
-
+  final double? size;
   final double? height;
   final bool allowDrawingOutsideViewBox;
+  final double? angle;
 
   const PinSvg(
     this.svg, {
     Key? key,
     this.width,
     this.height,
+    this.size,
     this.allowDrawingOutsideViewBox = true,
     this.color,
+    this.angle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
+    var svgWidget = SvgPicture.asset(
       svg,
-      width: width,
-      height: height,
+      width: size ?? width,
+      height: size ?? height,
       fit: BoxFit.contain,
       color: color,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
+    if (angle != null) {
+      return Transform.rotate(angle: angle!, child: svgWidget);
+    }
+    return svgWidget;
   }
 }
 

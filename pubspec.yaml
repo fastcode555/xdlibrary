@@ -30,9 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   flutter_svg: ^1.0.3
   infinity_core:
-    git:
-      url: https://gitlab.initcapp.com/app-dev/infinity_core
-      ref: develop
+    path: ../../infinity/infinity_core
 
 
 dev_dependencies:
