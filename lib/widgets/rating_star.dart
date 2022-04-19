@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xdlibrary/widgets/xdlibrary_config.dart';
 
 /// 星星视图的自定义构造器
 /// state，[RatingState] 星星状态
@@ -125,6 +126,9 @@ class _RatingStarState extends State<RatingStar> {
   }
 
   Widget _buildRating(RatingState state) {
+    if (XdLibraryConfig.instance.ratingBarBuilder != null) {
+      return XdLibraryConfig.instance.ratingBarBuilder!(state);
+    }
     switch (state) {
       case RatingState.select:
         return Icon(Icons.star, color: widget.color, size: widget.size);

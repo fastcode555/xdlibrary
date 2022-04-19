@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_core/core.dart';
+import 'package:xdlibrary/widgets/xdlibrary_config.dart';
 
 class InputField extends StatefulWidget {
   final String? text;
@@ -376,7 +377,9 @@ class _InputFieldState extends State<InputField> {
         ? GestureDetector(
             behavior: HitTestBehavior.translucent,
             child: Container(
-              child: widget.clearWidget ?? Icon(Icons.cancel, size: 16, color: _iconColor),
+              child: widget.clearWidget ??
+                  XdLibraryConfig.instance.deleteWidgetBuilder?.call(null) ??
+                  Icon(Icons.cancel, size: 16, color: _iconColor),
             ),
             onTap: () {
               // 保证在组件build的第一帧时才去触发取消清空内
