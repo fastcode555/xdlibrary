@@ -17,8 +17,8 @@ class InputField extends StatefulWidget {
   final Color? normalColor;
   final Color? focusColor;
   final TextEditingController? controller;
-  final BoxDecoration? decoration;
-  final BoxDecoration? focusDecoration;
+  final Decoration? decoration;
+  final Decoration? focusDecoration;
   final bool leftIconEnable;
   final FocusNode? focusNode;
   final Widget? leftWidgetBuilder;
@@ -410,7 +410,7 @@ class _InputFieldState extends State<InputField> {
 
   get _iconColor => _focusNode.hasFocus ? Colors.black87 : Colors.black12;
 
-  BoxDecoration get _itemDecoration {
+  Decoration get _itemDecoration {
     if (_focusNode.hasFocus) {
       return widget.focusDecoration ??
           BoxDecoration(
