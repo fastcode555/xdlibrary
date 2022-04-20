@@ -17,6 +17,7 @@ class PinButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Color? color;
+  final TextStyle? style;
 
   double? _width;
   double? _height;
@@ -34,7 +35,8 @@ class PinButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.color,
-    @required this.child,
+    this.style,
+    this.child,
   });
 
   PinButton.wrap({
@@ -49,7 +51,8 @@ class PinButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.color,
-    @required this.child,
+    this.style,
+    this.child,
   }) : _isWrap = true;
 
   void _onInit() {
@@ -106,7 +109,7 @@ class PinButton extends StatelessWidget {
         child: InkWell(
           borderRadius: borderRadius ?? _borderRadius,
           onTap: onPressed,
-          child: Center(child: child ?? Text(title ?? "")),
+          child: Center(child: child ?? Text(title ?? "", style: style)),
         ),
       ),
     );

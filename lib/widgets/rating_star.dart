@@ -44,6 +44,7 @@ class RatingStar extends StatefulWidget {
   /// 如果设置了，就支持编辑
   final ValueChanged<int>? onSelected;
   final Color? color;
+  final Color? activeColor;
   final double size;
 
   const RatingStar({
@@ -53,7 +54,8 @@ class RatingStar extends StatefulWidget {
     this.space = DEFAULT_SPACE,
     this.starBuilder,
     this.onSelected,
-    this.color,
+    this.color = const Color(0xFFF0F0F0),
+    this.activeColor,
     this.canRatingZero = false,
     this.size = 16.0,
   }) : super(key: key);
@@ -127,16 +129,16 @@ class _RatingStarState extends State<RatingStar> {
 
   Widget _buildRating(RatingState state) {
     if (XdLibraryConfig.instance.ratingBarBuilder != null) {
-      return XdLibraryConfig.instance.ratingBarBuilder!(state);
+      return XdLibraryConfig.instance.ratingBarBuilder!(state, widget.size, widget.color, widget.activeColor);
     }
     switch (state) {
       case RatingState.select:
-        return Icon(Icons.star, color: widget.color, size: widget.size);
+        return Icon(Icons.star, color: widget.activeColor, size: widget.size);
       case RatingState.half:
-        return Icon(Icons.star_half_rounded, color: widget.color, size: widget.size);
+        return Icon(Icons.star_half_rounded, color: widget.activeColor, size: widget.size);
       case RatingState.unselect:
       default:
-        return Icon(Icons.star_border_rounded, color: Color(0xFFF0F0F0), size: widget.size);
+        return Icon(Icons.star_border_rounded, color: widget.color, size: widget.size);
     }
   }
 }

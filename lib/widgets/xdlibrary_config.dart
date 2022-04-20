@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:xdlibrary/widgets/rating_star.dart';
 
 typedef WidgetBuilder<T> = Widget Function(T);
+typedef WidgetBuilder2<T> = Widget Function(T, double size, Color? color, Color? activeColor);
 
 class XdLibraryConfig {
   /// InputField deleteWidget builder
   WidgetBuilder? deleteWidgetBuilder;
 
   ///RatingBar widget buidler
-  WidgetBuilder<RatingState>? ratingBarBuilder;
+  WidgetBuilder2<RatingState>? ratingBarBuilder;
+
+  double inputFieldPadding = 12;
 
   static XdLibraryConfig? _instance;
 

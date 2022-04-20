@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// describe:
 class CBox extends StatefulWidget {
   final Duration duration;
-  final Decoration? normal;
+  final Decoration? decoration;
   final Decoration? focus;
   final ValueChanged<bool>? onChanged;
   final bool value;
@@ -22,7 +22,7 @@ class CBox extends StatefulWidget {
     this.iconSize,
     this.iconColor = Colors.white,
     this.activeColor,
-    this.normal = const BoxDecoration(
+    this.decoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(3)),
       border: Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
@@ -38,7 +38,7 @@ class _CboxState extends State<CBox> {
   bool _value = false;
   Decoration? _focus;
 
-  Decoration? get _normal => widget.normal;
+  Decoration? get _normal => widget.decoration;
 
   @override
   void initState() {
@@ -79,8 +79,8 @@ class _CboxState extends State<CBox> {
     if (_focus != null) return _focus!;
     var _borderRadius;
     var _shape;
-    if (widget.normal is BoxDecoration) {
-      BoxDecoration _boxDer = widget.normal as BoxDecoration;
+    if (widget.decoration is BoxDecoration) {
+      BoxDecoration _boxDer = widget.decoration as BoxDecoration;
       _borderRadius = _boxDer.borderRadius;
       _shape = _boxDer.shape;
     }

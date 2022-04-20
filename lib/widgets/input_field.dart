@@ -21,7 +21,7 @@ class InputField extends StatefulWidget {
   final Decoration? focusDecoration;
   final bool leftIconEnable;
   final FocusNode? focusNode;
-  final Widget? leftWidgetBuilder;
+  final Widget? leftWidget;
   final TextStyle? style;
   final TextStyle? hintStyle;
   final Widget? clearWidget;
@@ -29,7 +29,7 @@ class InputField extends StatefulWidget {
 
   final Color? backGroundColor;
   final bool nonDecoration;
-  final double contentPadding;
+  final double? contentPadding;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final VoidCallback? cancelCallBack;
@@ -52,6 +52,7 @@ class InputField extends StatefulWidget {
   final TextAlign textAlign;
   final bool showClear;
   final String? labelText;
+  final double? width;
 
   const InputField.search({
     Key? key,
@@ -61,6 +62,7 @@ class InputField extends StatefulWidget {
     this.focusDecoration,
     this.maxLines = 1,
     this.height = 48,
+    this.width,
     this.textInputAction = TextInputAction.search,
     this.normalColor,
     this.focusColor,
@@ -70,14 +72,14 @@ class InputField extends StatefulWidget {
     this.focusNode,
     this.style,
     this.hintStyle,
-    this.leftWidgetBuilder,
+    this.leftWidget,
     this.rightWidget,
     this.leftIconEnable = true,
     this.nonDecoration = false,
     this.backGroundColor,
     this.keyboardType = TextInputType.text,
     this.onEditingComplete,
-    this.contentPadding = 16,
+    this.contentPadding,
     this.inputFormatters,
     this.maxLength,
     this.cancelCallBack,
@@ -107,6 +109,7 @@ class InputField extends StatefulWidget {
     this.focusDecoration,
     this.maxLines = 1,
     this.height = 48,
+    this.width,
     this.textInputAction = TextInputAction.done,
     this.normalColor,
     this.focusColor,
@@ -117,11 +120,11 @@ class InputField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.leftIconEnable = false,
-    this.leftWidgetBuilder,
+    this.leftWidget,
     this.rightWidget,
     this.backGroundColor,
     this.nonDecoration = false,
-    this.contentPadding = 12,
+    this.contentPadding,
     this.inputFormatters,
     this.onEditingComplete,
     this.cancelCallBack,
@@ -153,6 +156,7 @@ class InputField extends StatefulWidget {
     this.focusDecoration,
     this.maxLines = 1,
     this.height = 48,
+    this.width,
     this.textInputAction = TextInputAction.next,
     this.normalColor,
     this.focusColor = const Color(0xfff5f5f7),
@@ -162,13 +166,13 @@ class InputField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.focusNode,
-    this.leftWidgetBuilder,
+    this.leftWidget,
     this.rightWidget,
     this.backGroundColor,
     this.leftIconEnable = false,
     this.nonDecoration = true,
     this.keyboardType = TextInputType.text,
-    this.contentPadding = 0,
+    this.contentPadding,
     this.onEditingComplete,
     this.inputFormatters,
     this.cancelCallBack,
@@ -199,6 +203,7 @@ class InputField extends StatefulWidget {
     this.focusDecoration,
     this.maxLines = 1,
     this.height = 48,
+    this.width,
     this.textInputAction = TextInputAction.next,
     this.normalColor,
     this.focusColor = const Color(0xfff5f5f7),
@@ -208,13 +213,13 @@ class InputField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.focusNode,
-    this.leftWidgetBuilder,
+    this.leftWidget,
     this.rightWidget,
     this.backGroundColor,
     this.leftIconEnable = false,
     this.nonDecoration = true,
     this.keyboardType = TextInputType.text,
-    this.contentPadding = 0,
+    this.contentPadding,
     this.onEditingComplete,
     this.inputFormatters,
     this.cancelCallBack,
@@ -312,12 +317,13 @@ class _InputFieldState extends State<InputField> {
   _buildTextField() {
     return Container(
       height: widget.height,
-      padding: EdgeInsets.only(left: widget.contentPadding),
+      width: widget.width,
+      padding: EdgeInsets.only(left: widget.contentPadding ?? XdLibraryConfig.instance.inputFieldPadding),
       decoration: widget.nonDecoration ? null : _itemDecoration,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (widget.leftIconEnable) widget.leftWidgetBuilder ?? Icon(Icons.search, size: 16, color: _iconColor),
+          if (widget.leftIconEnable) widget.leftWidget ?? Icon(Icons.search, size: 16, color: _iconColor),
           if (widget.leftIconEnable) const SizedBox(width: 5),
           Expanded(
             child: TextField(
@@ -413,6 +419,7 @@ class _InputFieldState extends State<InputField> {
   Decoration get _itemDecoration {
     if (_focusNode.hasFocus) {
       return widget.focusDecoration ??
+          widget.decoration ??
           BoxDecoration(
             color: widget.focusColor,
             borderRadius: const BorderRadius.all(Radius.circular(20)),

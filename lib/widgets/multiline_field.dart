@@ -71,6 +71,8 @@ class MultilineField extends StatefulWidget {
 }
 
 class _MultilineFieldState extends State<MultilineField> {
+  late FocusNode _focusNode;
+
   late TextEditingController _controller;
   bool _showHint = true;
   Timer? timer;
@@ -78,6 +80,11 @@ class _MultilineFieldState extends State<MultilineField> {
   @override
   void initState() {
     super.initState();
+    _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode.addListener(() {
+      setState(() {});
+    });
+
     _controller = widget.controller ?? TextEditingController();
     if (!TextUtil.isEmpty(widget.text)) {
       _controller.text = widget.text!;
@@ -107,51 +114,55 @@ class _MultilineFieldState extends State<MultilineField> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.padding != null ? Padding(child: _buildTextField(), padding: widget.padding!) : _buildTextField();
+    return _buildTextField();
   }
 
   _buildTextField() {
-    return TextField(
-      readOnly: widget.readOnly!,
-      focusNode: widget.focusNode,
-      textAlign: widget.textAlign,
-      onEditingComplete:
-          widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
-      controller: _controller,
-      //双击或长按报错
-      //enableInteractiveSelection: false,
-      maxLines: widget.maxLines,
-      style: widget.style ?? const TextStyle(color: Colors.black),
-      obscureText: widget.obscureText,
-      keyboardType: widget.keyboardType,
-      //maxLength: widget.maxLength,自带的带有计数器
-      cursorColor: widget.cursorColor,
-      enabled: widget.enable,
-      textInputAction: widget.textInputAction,
-      //关闭自动联想功能,特别是输入密码的时候
-      autocorrect: !Platform.isIOS,
-      decoration: InputDecoration(
-        focusColor: widget.focusColor,
-        contentPadding: const EdgeInsets.only(top: 5),
-        labelStyle: widget.hintStyle,
-        hintStyle: widget.hintStyle,
-        hintText: !_showHint ? null : widget.hintText,
-        border: const OutlineInputBorder(borderSide: BorderSide.none),
-        enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
-        focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+    return Container(
+      decoration: _focusNode.hasFocus ? widget.focusDecoration : widget.decoration,
+      padding: widget.padding,
+      child: TextField(
+        readOnly: widget.readOnly!,
+        focusNode: widget.focusNode,
+        textAlign: widget.textAlign,
+        onEditingComplete:
+            widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
+        controller: _controller,
+        //双击或长按报错
+        //enableInteractiveSelection: false,
+        maxLines: widget.maxLines,
+        style: widget.style ?? const TextStyle(color: Colors.black),
+        obscureText: widget.obscureText,
+        keyboardType: widget.keyboardType,
+        //maxLength: widget.maxLength,自带的带有计数器
+        cursorColor: widget.cursorColor,
+        enabled: widget.enable,
+        textInputAction: widget.textInputAction,
+        //关闭自动联想功能,特别是输入密码的时候
+        autocorrect: !Platform.isIOS,
+        decoration: InputDecoration(
+          focusColor: widget.focusColor,
+          contentPadding: const EdgeInsets.only(top: 5),
+          labelStyle: widget.hintStyle,
+          hintStyle: widget.hintStyle,
+          hintText: !_showHint ? null : widget.hintText,
+          border: const OutlineInputBorder(borderSide: BorderSide.none),
+          enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+          focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+        ),
+        onChanged: (character) {
+          if (widget.onChanged != null) {
+            if (timer != null && timer!.isActive) timer!.cancel();
+            timer = Timer(const Duration(seconds: 1), () {
+              widget.onChanged?.call(character);
+            });
+          }
+        },
+        inputFormatters: widget.inputFormatters,
+        onSubmitted: (v) {
+          widget.onSubmitted?.call(v);
+        },
       ),
-      onChanged: (character) {
-        if (widget.onChanged != null) {
-          if (timer != null && timer!.isActive) timer!.cancel();
-          timer = Timer(const Duration(seconds: 1), () {
-            widget.onChanged?.call(character);
-          });
-        }
-      },
-      inputFormatters: widget.inputFormatters,
-      onSubmitted: (v) {
-        widget.onSubmitted?.call(v);
-      },
     );
   }
 }
