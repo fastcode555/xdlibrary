@@ -14,6 +14,7 @@ class PinSvg extends StatelessWidget {
   final double? height;
   final bool allowDrawingOutsideViewBox;
   final double? angle;
+  final BoxFit fit;
 
   const PinSvg(
     this.svg, {
@@ -21,6 +22,7 @@ class PinSvg extends StatelessWidget {
     this.width,
     this.height,
     this.size,
+    this.fit = BoxFit.contain,
     this.allowDrawingOutsideViewBox = true,
     this.color,
     this.angle,
@@ -32,7 +34,7 @@ class PinSvg extends StatelessWidget {
       svg,
       width: size ?? width,
       height: size ?? height,
-      fit: BoxFit.contain,
+      fit: fit,
       color: color,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
@@ -49,6 +51,7 @@ class PinFillSvg extends StatelessWidget {
   final Color? color;
   final double? height;
   final bool allowDrawingOutsideViewBox;
+  final BoxFit fit;
 
   const PinFillSvg(
     this.svg, {
@@ -56,6 +59,7 @@ class PinFillSvg extends StatelessWidget {
     this.width = double.infinity,
     this.height = double.infinity,
     this.color,
+    this.fit = BoxFit.contain,
     this.allowDrawingOutsideViewBox = true,
   }) : super(key: key);
 
@@ -66,7 +70,7 @@ class PinFillSvg extends StatelessWidget {
       width: width,
       height: height,
       color: color,
-      fit: BoxFit.contain,
+      fit: fit,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
     );
   }

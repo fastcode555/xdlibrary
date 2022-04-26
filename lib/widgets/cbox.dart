@@ -47,6 +47,12 @@ class _CboxState extends State<CBox> {
   }
 
   @override
+  void didUpdateWidget(covariant CBox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _value = widget.value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -79,17 +85,20 @@ class _CboxState extends State<CBox> {
     if (_focus != null) return _focus!;
     var _borderRadius;
     var _shape;
+    var _border;
     if (widget.decoration is BoxDecoration) {
       BoxDecoration _boxDer = widget.decoration as BoxDecoration;
       _borderRadius = _boxDer.borderRadius;
       _shape = _boxDer.shape;
+      _border = _boxDer.border;
     }
     _focus = BoxDecoration(
-      color: widget.activeColor ?? Theme.of(context).primaryColor,
-      borderRadius: _borderRadius,
-      shape: _shape,
-      //border: Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
-    );
+        color: widget.activeColor ?? Theme.of(context).primaryColor,
+        borderRadius: _borderRadius,
+        shape: _shape,
+        border: _border
+        //border: Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
+        );
     return _focus!;
   }
 }
