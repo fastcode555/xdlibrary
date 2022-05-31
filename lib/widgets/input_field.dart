@@ -10,7 +10,7 @@ class InputField extends StatefulWidget {
   final String? text;
   final String? hintText;
   final bool obscureText;
-  final int maxLines;
+  final int? maxLines;
   final double height;
   final TextInputAction textInputAction;
   final ValueChanged<String>? onSubmitted;
