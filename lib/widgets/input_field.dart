@@ -53,6 +53,7 @@ class InputField extends StatefulWidget {
   final bool showClear;
   final String? labelText;
   final double? width;
+  final bool onChangeDelay;
 
   const InputField.search({
     Key? key,
@@ -96,6 +97,7 @@ class InputField extends StatefulWidget {
     this.lablePadding,
     this.replacement,
     this.showClear = true,
+    this.onChangeDelay = false,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -143,6 +145,7 @@ class InputField extends StatefulWidget {
     this.lablePadding,
     this.replacement,
     this.showClear = true,
+    this.onChangeDelay = false,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -190,6 +193,7 @@ class InputField extends StatefulWidget {
     this.labelText,
     this.lablePadding,
     this.replacement,
+    this.onChangeDelay = false,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -241,6 +245,7 @@ class InputField extends StatefulWidget {
     this.inputBorder,
     this.enabledBorder,
     this.focusedBorder,
+    this.onChangeDelay = false,
   }) : super(key: key);
 
   @override
@@ -358,11 +363,15 @@ class _InputFieldState extends State<InputField> {
                 suffixIcon: _buildSuffixIcon(),
               ),
               onChanged: (character) {
-                if (widget.onChanged != null) {
-                  if (timer != null && timer!.isActive) timer!.cancel();
-                  timer = Timer(const Duration(seconds: 1), () {
-                    widget.onChanged?.call(character);
-                  });
+                if (widget.onChangeDelay) {
+                  if (widget.onChanged != null) {
+                    if (timer != null && timer!.isActive) timer!.cancel();
+                    timer = Timer(const Duration(seconds: 1), () {
+                      widget.onChanged?.call(character);
+                    });
+                  }
+                } else {
+                  widget.onChanged?.call(character);
                 }
                 setState(() => _isShowClean = character.isNotEmpty);
               },
