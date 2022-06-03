@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:infinity_core/core.dart';
+import 'package:oktoast/oktoast.dart';
 
 class MultilineField extends StatefulWidget {
   final String? text;
