@@ -1,16 +1,14 @@
-# xdlibrary
+# json2dart
 
-A new Flutter project.
+[Chinese](README_CN.md)
+## features
+
+- support generate Dart.model with Null-Safety feature
+- support generate Dart.model with default value
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Generated dart bean from json
+- You can install the plugin Json2Dart-Null-Safety to genereate
+  Dart.model https://github.com/fastcode555/JsonBeanGenerator/tree/master/publish_version
+- You can generate Dart model in this website https://fastcode555.github.io/#tools/Json2DartPage

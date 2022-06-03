@@ -1,10 +1,9 @@
 name: xdlibrary
 description: A new Flutter project.
-
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+publish_to: 'https://github.com/fastcode555/xdlibrary' # Remove this line if you wish to publish to pub.dev
+repository: 'https://github.com/fastcode555/xdlibrary'
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -15,7 +14,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.2+3
+version: 1.0.0
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
@@ -29,9 +28,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.4
   flutter_svg: ^1.0.3
-  get:
-  flustars:
-  oktoast:
+  get: ^4.6.5
+  flustars: ^2.0.1
+  oktoast: ^3.1.5
 
 dev_dependencies:
   flutter_test:
