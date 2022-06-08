@@ -55,6 +55,7 @@ class InputField extends StatefulWidget {
   final String? labelText;
   final double? width;
   final bool onChangeDelay;
+  final int delayDuration;
 
   const InputField.search({
     Key? key,
@@ -99,6 +100,7 @@ class InputField extends StatefulWidget {
     this.replacement,
     this.showClear = true,
     this.onChangeDelay = false,
+    this.delayDuration = 1000,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -147,6 +149,7 @@ class InputField extends StatefulWidget {
     this.replacement,
     this.showClear = true,
     this.onChangeDelay = false,
+    this.delayDuration = 1000,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -195,6 +198,7 @@ class InputField extends StatefulWidget {
     this.lablePadding,
     this.replacement,
     this.onChangeDelay = false,
+    this.delayDuration = 1000,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -247,6 +251,7 @@ class InputField extends StatefulWidget {
     this.enabledBorder,
     this.focusedBorder,
     this.onChangeDelay = false,
+    this.delayDuration = 1000,
   }) : super(key: key);
 
   @override
@@ -367,7 +372,7 @@ class _InputFieldState extends State<InputField> {
                 if (widget.onChangeDelay) {
                   if (widget.onChanged != null) {
                     if (timer != null && timer!.isActive) timer!.cancel();
-                    timer = Timer(const Duration(seconds: 1), () {
+                    timer = Timer(Duration(microseconds: widget.delayDuration), () {
                       widget.onChanged?.call(character);
                     });
                   }
