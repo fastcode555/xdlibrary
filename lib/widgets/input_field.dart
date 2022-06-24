@@ -404,7 +404,7 @@ class _InputFieldState extends State<InputField> {
             ),
             onTap: () {
               // 保证在组件build的第一帧时才去触发取消清空内
-              WidgetsBinding.instance?.addPostFrameCallback((_) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
                 _controller.clear();
                 widget.onChanged?.call("");
               });
