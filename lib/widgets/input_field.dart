@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oktoast/oktoast.dart';
@@ -272,10 +271,10 @@ class _InputFieldState extends State<InputField> {
     _focusNode = widget.focusNode ?? FocusNode();
     _focusNode.addListener(_focusNodeListener);
     _controller = widget.controller ?? TextEditingController();
-    if (!TextUtil.isEmpty(widget.text)) {
+    if (!_isEmpty(widget.text)) {
       _controller.text = widget.text!;
     }
-    _showHint = TextUtil.isEmpty(_controller.text);
+    _showHint = _isEmpty(_controller.text);
     _controller.addListener(() {
       //自己实现限制输入长度
       if (widget.maxLength != null && widget.maxLength! > 0) {
@@ -290,9 +289,9 @@ class _InputFieldState extends State<InputField> {
         }
       }
       //为解决柬埔寨语错位问题
-      if (TextUtil.isEmpty(_controller.text) != _showHint) {
+      if (_isEmpty(_controller.text) != _showHint) {
         setState(() {
-          _showHint = TextUtil.isEmpty(_controller.text);
+          _showHint = _isEmpty(_controller.text);
         });
       }
     });
@@ -447,4 +446,6 @@ class _InputFieldState extends State<InputField> {
           );
     }
   }
+
+  bool _isEmpty(String? text) => text == null || text.isEmpty;
 }
