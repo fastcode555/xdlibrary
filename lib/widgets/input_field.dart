@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -354,7 +353,8 @@ class _InputFieldState extends State<InputField> {
               enabled: widget.enable,
               textInputAction: widget.textInputAction,
               //关闭自动联想功能,特别是输入密码的时候
-              autocorrect: !Platform.isIOS,
+              //TODO:暂时测试不会出现这个问题，但是跑在web端加上Platform会有问题，故暂时关闭这个属性
+              //autocorrect: !Platform.isIOS,
               decoration: InputDecoration(
                 focusColor: widget.focusColor,
                 contentPadding: widget.lablePadding ?? (widget.labelText == "" ? null : const EdgeInsets.only(top: 5)),
