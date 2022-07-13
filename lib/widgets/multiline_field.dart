@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -139,7 +138,7 @@ class _MultilineFieldState extends State<MultilineField> {
         enabled: widget.enable,
         textInputAction: widget.textInputAction,
         //关闭自动联想功能,特别是输入密码的时候
-        autocorrect: !Platform.isIOS,
+        //autocorrect: !Platform.isIOS,
         decoration: InputDecoration(
           focusColor: widget.focusColor,
           contentPadding: const EdgeInsets.only(top: 5),
