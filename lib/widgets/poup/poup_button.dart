@@ -10,6 +10,7 @@ class PoupButton<T> extends StatelessWidget {
   final PoupMenusOffsetBuilder? offsetBuilder;
   final ShapeBorder? shape;
   final Widget Function(int index, T item) itemBuilder;
+  final String? tooltip;
 
   PoupButton(
     this.child, {
@@ -18,6 +19,7 @@ class PoupButton<T> extends StatelessWidget {
     this.onSelected,
     this.offsetBuilder,
     this.shape,
+    this.tooltip,
     required this.contextBuilder,
     required this.itemBuilder,
     Key? key,
@@ -31,6 +33,7 @@ class PoupButton<T> extends StatelessWidget {
       onSelected: onSelected,
       builder: contextBuilder,
       offsetBuilder: offsetBuilder,
+      tooltip: tooltip,
       shape: shape,
       /* shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),

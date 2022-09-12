@@ -54,6 +54,7 @@ class InputField extends StatefulWidget {
   final double? width;
   final bool onChangeDelay;
   final int delayDuration;
+  final bool autoFocus;
 
   const InputField.search({
     Key? key,
@@ -99,6 +100,7 @@ class InputField extends StatefulWidget {
     this.showClear = true,
     this.onChangeDelay = false,
     this.delayDuration = 1000,
+    this.autoFocus = false,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -148,6 +150,7 @@ class InputField extends StatefulWidget {
     this.showClear = true,
     this.onChangeDelay = false,
     this.delayDuration = 1000,
+    this.autoFocus = false,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -197,6 +200,7 @@ class InputField extends StatefulWidget {
     this.replacement,
     this.onChangeDelay = false,
     this.delayDuration = 1000,
+    this.autoFocus = false,
     this.inputBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.enabledBorder = const OutlineInputBorder(borderSide: BorderSide.none),
     this.focusedBorder = const OutlineInputBorder(borderSide: BorderSide.none),
@@ -248,6 +252,7 @@ class InputField extends StatefulWidget {
     this.inputBorder,
     this.enabledBorder,
     this.focusedBorder,
+    this.autoFocus = false,
     this.onChangeDelay = false,
     this.delayDuration = 1000,
   }) : super(key: key);
@@ -342,6 +347,7 @@ class _InputFieldState extends State<InputField> {
               onEditingComplete:
                   widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
               controller: _controller,
+              autofocus: widget.autoFocus,
               //双击或长按报错
               //enableInteractiveSelection: false,
               maxLines: widget.maxLines,
