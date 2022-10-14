@@ -30,6 +30,23 @@ class CBox extends StatefulWidget {
     this.focus,
   }) : super(key: key);
 
+  const CBox.circle({
+    Key? key,
+    this.duration = const Duration(milliseconds: 300),
+    this.onChanged,
+    this.size = 38,
+    this.value = false,
+    this.iconSize,
+    this.iconColor = Colors.white,
+    this.activeColor,
+    this.decoration = const BoxDecoration(
+      color: Colors.white,
+      shape: BoxShape.circle,
+      border: Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
+    ),
+    this.focus,
+  }) : super(key: key);
+
   @override
   _CboxState createState() => _CboxState();
 }
