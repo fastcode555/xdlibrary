@@ -377,7 +377,7 @@ class _InputFieldState extends State<InputField> {
                 if (widget.onChangeDelay) {
                   if (widget.onChanged != null) {
                     if (timer != null && timer!.isActive) timer!.cancel();
-                    timer = Timer(Duration(microseconds: widget.delayDuration), () {
+                    timer = Timer(Duration(milliseconds: widget.delayDuration), () {
                       widget.onChanged?.call(character);
                     });
                   }
