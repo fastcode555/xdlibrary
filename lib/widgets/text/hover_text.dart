@@ -37,6 +37,8 @@ class _HoverTextState extends State<HoverText> {
     _selectStyle = widget.style;
     if (widget.style != null) {
       _hoverStyle = widget.style!.copyWith(color: widget.hoverColor);
+    } else {
+      _hoverStyle = TextStyle(color: widget.hoverColor, inherit: true);
     }
   }
 
@@ -53,6 +55,7 @@ class _HoverTextState extends State<HoverText> {
           textAlign: widget.textAlign,
           textDirection: widget.textDirection,
           maxLines: widget.maxLines,
+          //overflow: TextOverflow.ellipsis,
         ),
         onTap: widget.onPressed,
       ),

@@ -14,12 +14,12 @@ class MultilineField extends StatefulWidget {
   final Color? normalColor;
   final Color? focusColor;
   final TextEditingController? controller;
-  final BoxDecoration? decoration;
-  final BoxDecoration? focusDecoration;
+  final Decoration? decoration;
+  final Decoration? focusDecoration;
   final FocusNode? focusNode;
   final TextStyle? style;
   final TextStyle? hintStyle;
-
+  final double height;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final VoidCallback? cancelCallBack;
@@ -59,6 +59,7 @@ class MultilineField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.enable = true,
     this.cursorColor,
+    this.height = 200,
     this.padding,
     this.readOnly = false,
     this.onChanged,
@@ -120,12 +121,13 @@ class _MultilineFieldState extends State<MultilineField> {
     return Container(
       decoration: _focusNode.hasFocus ? widget.focusDecoration : widget.decoration,
       padding: widget.padding,
+      height: widget.height,
       child: TextField(
         readOnly: widget.readOnly!,
         focusNode: widget.focusNode,
         textAlign: widget.textAlign,
         onEditingComplete:
-            widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
+        widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
         controller: _controller,
         //双击或长按报错
         //enableInteractiveSelection: false,

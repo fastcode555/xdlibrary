@@ -12,6 +12,7 @@ class CBox extends StatefulWidget {
   final double? iconSize;
   final Color iconColor;
   final Color? activeColor;
+  final Widget? child;
 
   const CBox({
     Key? key,
@@ -22,6 +23,7 @@ class CBox extends StatefulWidget {
     this.iconSize,
     this.iconColor = Colors.white,
     this.activeColor,
+    this.child,
     this.decoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(3)),
@@ -39,6 +41,7 @@ class CBox extends StatefulWidget {
     this.iconSize,
     this.iconColor = Colors.white,
     this.activeColor,
+    this.child,
     this.decoration = const BoxDecoration(
       color: Colors.white,
       shape: BoxShape.circle,
@@ -71,6 +74,35 @@ class _CboxState extends State<CBox> {
 
   @override
   Widget build(BuildContext context) {
+    Widget box = AnimatedContainer(
+      width: widget.size,
+      height: widget.size,
+      duration: widget.duration,
+      decoration: _value ? getFocus() : _normal,
+      child: Center(
+        child: Visibility(
+          visible: _value,
+          child: Icon(
+            Icons.done_rounded,
+            color: widget.iconColor,
+            size: widget.iconSize ?? (widget.size! * 0.65),
+          ),
+        ),
+      ),
+    );
+    if (widget.child != null) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            _value = !_value;
+          });
+          widget.onChanged?.call(_value);
+        },
+        child: Row(
+          children: [box, widget.child!],
+        ),
+      );
+    }
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -78,22 +110,7 @@ class _CboxState extends State<CBox> {
         });
         widget.onChanged?.call(_value);
       },
-      child: AnimatedContainer(
-        width: widget.size,
-        height: widget.size,
-        duration: widget.duration,
-        decoration: _value ? getFocus() : _normal,
-        child: Center(
-          child: Visibility(
-            visible: _value,
-            child: Icon(
-              Icons.done_rounded,
-              color: widget.iconColor,
-              size: widget.iconSize ?? (widget.size! * 0.65),
-            ),
-          ),
-        ),
-      ),
+      child: box,
     );
   }
 
