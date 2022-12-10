@@ -103,11 +103,7 @@ class _HoverWidgetState extends State<ZoomWidget> {
       );
     }
     if (widget.width != null || widget.height != null) {
-      return SizedBox(
-        width: widget.width,
-        height: widget.height,
-        child: mouseWidget,
-      );
+      return SizedBox(width: widget.width, height: widget.height, child: mouseWidget);
     }
     return mouseWidget;
   }

@@ -42,7 +42,7 @@ class RatingStar extends StatefulWidget {
   final RatingStarBuilder? starBuilder;
 
   /// 如果设置了，就支持编辑
-  final ValueChanged<int>? onSelected;
+  final ValueChanged<double>? onSelected;
   final Color? color;
   final Color? activeColor;
   final double size;
@@ -111,7 +111,7 @@ class _RatingStarState extends State<RatingStar> {
             } else {
               currSelected = (i + 1).toDouble();
             }
-            widget.onSelected!(currSelected.toInt());
+            widget.onSelected!(currSelected);
             setState(() {});
           },
           behavior: HitTestBehavior.opaque,
