@@ -20,7 +20,8 @@ class DynamicLineText extends StatelessWidget {
       builder: (_, constraint) {
         double height = constraint.maxHeight;
         //double lineHeight = _paintHeightWithTextStyle(text, style ?? TextStyle(), maxWidth: constraint.maxWidth);
-        double lineHeight = _paintHeightWithTextStyle('\n', style ?? TextStyle());
+        double lineHeight =
+            _paintHeightWithTextStyle('\n', style ?? TextStyle());
         print('maxHeight:$height,lineHeight:$lineHeight');
         int maxLine = height ~/ lineHeight + 1;
         maxLine = maxLine <= 0 ? 1 : maxLine;
@@ -29,7 +30,8 @@ class DynamicLineText extends StatelessWidget {
     );
   }
 
-  double _paintHeightWithTextStyle(String text, TextStyle style, {double? maxWidth}) {
+  double _paintHeightWithTextStyle(String text, TextStyle style,
+      {double? maxWidth}) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       textDirection: TextDirection.ltr,

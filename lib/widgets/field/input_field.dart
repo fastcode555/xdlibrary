@@ -284,11 +284,14 @@ class _InputFieldState extends State<InputField> {
       if (widget.maxLength != null && widget.maxLength! > 0) {
         if (_controller.text.length > widget.maxLength!) {
           //限制提醒
-          if (widget.exceedLimitTip != null) showToast(widget.exceedLimitTip ?? '');
+          if (widget.exceedLimitTip != null)
+            showToast(widget.exceedLimitTip ?? '');
           _controller.text = _controller.text.substring(0, widget.maxLength);
           //移动角标到最后位置
           _controller.selection = TextSelection.fromPosition(
-            TextPosition(affinity: TextAffinity.downstream, offset: _controller.text.length),
+            TextPosition(
+                affinity: TextAffinity.downstream,
+                offset: _controller.text.length),
           );
         }
       }
@@ -325,27 +328,35 @@ class _InputFieldState extends State<InputField> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.padding != null ? Padding(child: _buildTextField(), padding: widget.padding!) : _buildTextField();
+    return widget.padding != null
+        ? Padding(child: _buildTextField(), padding: widget.padding!)
+        : _buildTextField();
   }
 
   _buildTextField() {
     return Container(
       height: widget.height,
       width: widget.width,
-      padding: EdgeInsets.only(left: widget.contentPadding ?? XdLibraryConfig.instance.inputFieldPadding),
+      padding: EdgeInsets.only(
+          left: widget.contentPadding ??
+              XdLibraryConfig.instance.inputFieldPadding),
       decoration: widget.nonDecoration ? null : _itemDecoration,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (widget.leftIconEnable) widget.leftWidget ?? Icon(Icons.search, size: 16, color: _iconColor),
+          if (widget.leftIconEnable)
+            widget.leftWidget ??
+                Icon(Icons.search, size: 16, color: _iconColor),
           if (widget.leftIconEnable) const SizedBox(width: 5),
           Expanded(
             child: TextField(
               readOnly: widget.readOnly!,
               focusNode: _focusNode,
               textAlign: widget.textAlign,
-              onEditingComplete:
-                  widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
+              onEditingComplete: widget.onEditingComplete ??
+                  (widget.scopeNode != null
+                      ? () => widget.scopeNode?.nextFocus()
+                      : null),
               controller: _controller,
               autofocus: widget.autoFocus,
               //双击或长按报错
@@ -363,7 +374,10 @@ class _InputFieldState extends State<InputField> {
               //autocorrect: !Platform.isIOS,
               decoration: InputDecoration(
                 focusColor: widget.focusColor,
-                contentPadding: widget.lablePadding ?? (widget.labelText == "" ? null : const EdgeInsets.only(top: 5)),
+                contentPadding: widget.lablePadding ??
+                    (widget.labelText == ""
+                        ? null
+                        : const EdgeInsets.only(top: 5)),
                 labelText: widget.labelText,
                 labelStyle: widget.hintStyle,
                 hintStyle: widget.hintStyle,
@@ -377,7 +391,8 @@ class _InputFieldState extends State<InputField> {
                 if (widget.onChangeDelay) {
                   if (widget.onChanged != null) {
                     if (timer != null && timer!.isActive) timer!.cancel();
-                    timer = Timer(Duration(milliseconds: widget.delayDuration), () {
+                    timer =
+                        Timer(Duration(milliseconds: widget.delayDuration), () {
                       widget.onChanged?.call(character);
                     });
                   }
@@ -423,7 +438,9 @@ class _InputFieldState extends State<InputField> {
   }
 
   Widget? _buildSuffixIcon() {
-    Widget cancelWidget = _buildCancelButton() ?? widget.replacement ?? const SizedBox(height: 16);
+    Widget cancelWidget = _buildCancelButton() ??
+        widget.replacement ??
+        const SizedBox(height: 16);
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -447,7 +464,9 @@ class _InputFieldState extends State<InputField> {
     } else {
       return widget.decoration ??
           BoxDecoration(
-            color: _focusNode.hasFocus ? widget.focusColor : (widget.normalColor ?? widget.focusColor),
+            color: _focusNode.hasFocus
+                ? widget.focusColor
+                : (widget.normalColor ?? widget.focusColor),
             borderRadius: const BorderRadius.all(Radius.circular(20)),
           );
     }

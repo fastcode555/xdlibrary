@@ -61,7 +61,8 @@ class ScrollIndexWidget extends StatelessWidget {
     return false;
   }
 
-  SliverMultiBoxAdaptorElement? findSliverMultiBoxAdaptorElement(Element element) {
+  SliverMultiBoxAdaptorElement? findSliverMultiBoxAdaptorElement(
+      Element element) {
     if (element is SliverMultiBoxAdaptorElement) {
       return element;
     }

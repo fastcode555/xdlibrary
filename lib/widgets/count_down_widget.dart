@@ -11,7 +11,8 @@ enum CountDownStatus {
 class CountDownWidget extends StatefulWidget {
   final Duration duration;
   final Duration interval;
-  final Widget Function(CountDownStatus status, int leftTime, Function() countDown) builder;
+  final Widget Function(
+      CountDownStatus status, int leftTime, Function() countDown) builder;
 
   const CountDownWidget({
     Key? key,

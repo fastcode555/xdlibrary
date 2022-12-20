@@ -5,6 +5,8 @@ flutter format .
 cd ..
 
 pwd
+
+git add .
 git commit -m 'execute format'
 branch=$(git symbolic-ref --short -q HEAD)
 git push origin $branch

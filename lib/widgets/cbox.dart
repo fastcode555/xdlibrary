@@ -27,7 +27,8 @@ class CBox extends StatefulWidget {
     this.decoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(3)),
-      border: Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
+      border:
+          Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
     ),
     this.focus,
   }) : super(key: key);
@@ -45,7 +46,8 @@ class CBox extends StatefulWidget {
     this.decoration = const BoxDecoration(
       color: Colors.white,
       shape: BoxShape.circle,
-      border: Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
+      border:
+          Border.fromBorderSide(BorderSide(color: Colors.black54, width: 0.5)),
     ),
     this.focus,
   }) : super(key: key);

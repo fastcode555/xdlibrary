@@ -76,7 +76,9 @@ class PinStack extends StatelessWidget {
   final Color? color;
   final List<Widget> children;
 
-  const PinStack({required this.children, Key? key, this.decoration, this.color}) : super(key: key);
+  const PinStack(
+      {required this.children, Key? key, this.decoration, this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

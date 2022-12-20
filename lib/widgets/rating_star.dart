@@ -99,7 +99,9 @@ class _RatingStarState extends State<RatingStar> {
       } else {
         state = RatingState.unselect;
       }
-      var rating = widget.starBuilder != null ? widget.starBuilder!(state) : _buildRating(state);
+      var rating = widget.starBuilder != null
+          ? widget.starBuilder!(state)
+          : _buildRating(state);
 
       if (widget.onSelected != null) {
         list.add(GestureDetector(
@@ -129,16 +131,19 @@ class _RatingStarState extends State<RatingStar> {
 
   Widget _buildRating(RatingState state) {
     if (XdLibraryConfig.instance.ratingBarBuilder != null) {
-      return XdLibraryConfig.instance.ratingBarBuilder!(state, widget.size, widget.color, widget.activeColor);
+      return XdLibraryConfig.instance.ratingBarBuilder!(
+          state, widget.size, widget.color, widget.activeColor);
     }
     switch (state) {
       case RatingState.select:
         return Icon(Icons.star, color: widget.activeColor, size: widget.size);
       case RatingState.half:
-        return Icon(Icons.star_half_rounded, color: widget.activeColor, size: widget.size);
+        return Icon(Icons.star_half_rounded,
+            color: widget.activeColor, size: widget.size);
       case RatingState.unselect:
       default:
-        return Icon(Icons.star_border_rounded, color: widget.color, size: widget.size);
+        return Icon(Icons.star_border_rounded,
+            color: widget.color, size: widget.size);
     }
   }
 }

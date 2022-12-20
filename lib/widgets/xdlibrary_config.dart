@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:xdlibrary/widgets/rating_star.dart';
 
 typedef WidgetBuilder<T> = Widget Function(T);
-typedef WidgetBuilder2<T> = Widget Function(T, double size, Color? color, Color? activeColor);
+typedef WidgetBuilder2<T> = Widget Function(
+    T, double size, Color? color, Color? activeColor);
 
 class XdLibraryConfig {
   /// InputField deleteWidget builder

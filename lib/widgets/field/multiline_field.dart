@@ -95,11 +95,14 @@ class _MultilineFieldState extends State<MultilineField> {
       if (widget.maxLength != null && widget.maxLength! > 0) {
         if (_controller.text.length > widget.maxLength!) {
           //限制提醒
-          if (widget.exceedLimitTip != null) showToast(widget.exceedLimitTip ?? '');
+          if (widget.exceedLimitTip != null)
+            showToast(widget.exceedLimitTip ?? '');
           _controller.text = _controller.text.substring(0, widget.maxLength);
           //移动角标到最后位置
           _controller.selection = TextSelection.fromPosition(
-            TextPosition(affinity: TextAffinity.downstream, offset: _controller.text.length),
+            TextPosition(
+                affinity: TextAffinity.downstream,
+                offset: _controller.text.length),
           );
         }
       }
@@ -119,15 +122,18 @@ class _MultilineFieldState extends State<MultilineField> {
 
   _buildTextField() {
     return Container(
-      decoration: _focusNode.hasFocus ? widget.focusDecoration : widget.decoration,
+      decoration:
+          _focusNode.hasFocus ? widget.focusDecoration : widget.decoration,
       padding: widget.padding,
       height: widget.height,
       child: TextField(
         readOnly: widget.readOnly!,
         focusNode: widget.focusNode,
         textAlign: widget.textAlign,
-        onEditingComplete:
-        widget.onEditingComplete ?? (widget.scopeNode != null ? () => widget.scopeNode?.nextFocus() : null),
+        onEditingComplete: widget.onEditingComplete ??
+            (widget.scopeNode != null
+                ? () => widget.scopeNode?.nextFocus()
+                : null),
         controller: _controller,
         //双击或长按报错
         //enableInteractiveSelection: false,

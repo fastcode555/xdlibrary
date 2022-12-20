@@ -71,7 +71,8 @@ class PinButton extends StatelessWidget {
           if (padding != null && padding is EdgeInsets) {
             EdgeInsets insets = padding as EdgeInsets;
             _width = textPainter.width + insets.left + insets.right;
-            _height = height ?? (textPainter.height + insets.top + insets.bottom);
+            _height =
+                height ?? (textPainter.height + insets.top + insets.bottom);
           } else {
             _width = textPainter.width + 14;
             _height = height ?? (textPainter.height + 6);
