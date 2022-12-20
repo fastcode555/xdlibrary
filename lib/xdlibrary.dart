@@ -5,6 +5,7 @@ export 'package:xdlibrary/widgets/custom_sliver.dart';
 export 'package:xdlibrary/widgets/dialog/dialog_common.dart';
 export 'package:xdlibrary/widgets/field/input_field.dart';
 export 'package:xdlibrary/widgets/field/multiline_field.dart';
+export 'package:xdlibrary/widgets/hover/overlay_hover.dart';
 export 'package:xdlibrary/widgets/lazy_indexed_stack.dart';
 export 'package:xdlibrary/widgets/pin_button.dart';
 export 'package:xdlibrary/widgets/pin_mark_widget.dart';
