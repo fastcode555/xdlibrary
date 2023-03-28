@@ -18,3 +18,5 @@ export 'package:xdlibrary/widgets/test.dart';
 export 'package:xdlibrary/widgets/text/dynamic_line_text.dart';
 export 'package:xdlibrary/widgets/text/hover_text.dart';
 export 'package:xdlibrary/widgets/xdlibrary_config.dart';
+export 'package:xdlibrary/widgets/poup/base_poup_menu.dart';
+export 'package:xdlibrary/widgets/poup/poup_button.dart';
