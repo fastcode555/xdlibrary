@@ -393,8 +393,8 @@ class _InputFieldState extends State<InputField> {
                     if (timer != null && timer!.isActive) timer!.cancel();
                     timer =
                         Timer(Duration(milliseconds: widget.delayDuration), () {
-                      widget.onChanged?.call(character);
-                    });
+                          widget.onChanged?.call(character);
+                        });
                   }
                 } else {
                   widget.onChanged?.call(character);
@@ -416,28 +416,31 @@ class _InputFieldState extends State<InputField> {
   Widget? _buildCancelButton() {
     return _isShowClean && widget.showClear
         ? GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            child: Container(
-              child: widget.clearWidget ??
-                  XdLibraryConfig.instance.deleteWidgetBuilder?.call(null) ??
-                  Icon(Icons.cancel, size: 16, color: _iconColor),
-            ),
-            onTap: () {
-              // 保证在组件build的第一帧时才去触发取消清空内
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                _controller.clear();
-                widget.onChanged?.call("");
-              });
-              widget.cancelCallBack?.call();
-              setState(() {
-                _isShowClean = false;
-              });
-            },
-          )
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        child: widget.clearWidget ??
+            XdLibraryConfig.instance.deleteWidgetBuilder?.call(null) ??
+            Icon(Icons.cancel, size: 16, color: _iconColor),
+      ),
+      onTap: () {
+        // 保证在组件build的第一帧时才去触发取消清空内
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _controller.clear();
+          widget.onChanged?.call("");
+        });
+        widget.cancelCallBack?.call();
+        setState(() {
+          _isShowClean = false;
+        });
+      },
+    )
         : null;
   }
 
   Widget? _buildSuffixIcon() {
+    if (widget.rightWidget == null && !widget.showClear) {
+      return null;
+    }
     Widget cancelWidget = _buildCancelButton() ??
         widget.replacement ??
         const SizedBox(height: 16);
