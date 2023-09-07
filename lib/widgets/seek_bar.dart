@@ -230,8 +230,10 @@ class _SeekBarPainter extends CustomPainter {
         canvas.drawCircle(progressPoint, thumbRadius!, thumbPaint);
       }
       if (secondCircleEnale) {
-        thumbPaint.color = thumbColor!;
+        thumbPaint.color = progressColor!;
         canvas.drawCircle(progressPoint, thumbRadius! * 1.0, thumbPaint);
+        thumbPaint.color = thumbColor!;
+        canvas.drawCircle(progressPoint, thumbRadius! * 0.9, thumbPaint);
         thumbPaint.color = progressColor!;
         canvas.drawCircle(progressPoint, thumbRadius! * 0.5, thumbPaint);
       } else {

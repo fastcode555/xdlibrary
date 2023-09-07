@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef CanAccept = bool Function(int oldIndex, int newIndex);
-typedef DataWidgetBuilder<T> = Widget Function(
-    BuildContext context, T data, int index);
+typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T data, int index);
 typedef CanDragAtPosition<T> = bool Function(int index, T data);
 
 class SortableGridView<T> extends StatefulWidget {
@@ -12,12 +11,13 @@ class SortableGridView<T> extends StatefulWidget {
   final int crossAxisCount;
   final double childAspectRatio;
   final CanDragAtPosition<T>? canDrag;
-  final double? crossAxisSpacing;
-  final double? mainAxisSpacing;
+  final double crossAxisSpacing;
+  final double mainAxisSpacing;
   final ScrollPhysics? physics;
   final VoidCallback? onDragCompleted;
   final VoidCallback? onDragStarted;
   final EdgeInsetsGeometry? padding;
+  final bool shrinkWrap;
 
   const SortableGridView(
     this.dataList, {
@@ -25,16 +25,16 @@ class SortableGridView<T> extends StatefulWidget {
     this.crossAxisCount = 3,
     this.canDrag,
     this.childAspectRatio = 1.0,
-    this.crossAxisSpacing,
-    this.mainAxisSpacing,
+    this.crossAxisSpacing = 0,
+    this.mainAxisSpacing = 0,
     this.physics,
     this.onDragCompleted,
     this.onDragStarted,
     this.padding,
+    this.shrinkWrap = true,
     required this.itemBuilder,
     required this.canAccept,
-  })  : assert(itemBuilder != null),
-        assert(canAccept != null),
+  })  : assert(canAccept != null),
         assert(dataList != null && dataList.length >= 0),
         super(key: key);
 
@@ -44,8 +44,7 @@ class SortableGridView<T> extends StatefulWidget {
 
 class _SortableGridViewState<T> extends State<SortableGridView<T>> {
   late List<T> _dataList; //数据源
-  late List<T>
-      _dataListBackup; //数据源备份，在拖动时 会直接在数据源上修改 来影响UI变化，当拖动取消等情况，需要通过备份还原
+  late List<T> _dataListBackup; //数据源备份，在拖动时 会直接在数据源上修改 来影响UI变化，当拖动取消等情况，需要通过备份还原
   bool _showItemWhenCovered = false; //手指覆盖的地方，即item被拖动时 底部的那个widget是否可见；
   int _willAcceptIndex = -1; //当拖动覆盖到某个item上的时候，记录这个item的坐标
 
@@ -69,10 +68,10 @@ class _SortableGridViewState<T> extends State<SortableGridView<T>> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: widget.childAspectRatio,
         crossAxisCount: widget.crossAxisCount,
-        crossAxisSpacing: widget.crossAxisSpacing!,
-        mainAxisSpacing: widget.mainAxisSpacing!,
+        crossAxisSpacing: widget.crossAxisSpacing,
+        mainAxisSpacing: widget.mainAxisSpacing,
       ),
-      shrinkWrap: true,
+      shrinkWrap: widget.shrinkWrap,
       //item宽高比
       itemBuilder: (_, index) {
         if (widget.canDrag != null) {
@@ -87,8 +86,7 @@ class _SortableGridViewState<T> extends State<SortableGridView<T>> {
     );
   }
 
-  _buildNormalWidget(BuildContext context, int i) =>
-      widget.itemBuilder(context, _dataList[i], i);
+  _buildNormalWidget(BuildContext context, int i) => widget.itemBuilder(context, _dataList[i], i);
 
   //绘制一个可拖拽的控件。
   Widget _buildDraggable(BuildContext context, int index) {
@@ -152,8 +150,7 @@ class _SortableGridViewState<T> extends State<SortableGridView<T>> {
           },
           onDragCompleted: () {
             //拖动完成，刷新状态，重置willAcceptIndex
-            debugPrint(
-                'item $index ---------------------------onDragCompleted');
+            debugPrint('item $index ---------------------------onDragCompleted');
             setState(() {
               _showItemWhenCovered = false;
               _willAcceptIndex = -1;
@@ -170,9 +167,7 @@ class _SortableGridViewState<T> extends State<SortableGridView<T>> {
           ),
           //这个是当item被拖动时，item原来位置用来占位的widget，（用户把item拖走后原来的地方该显示啥？就是这个）
           childWhenDragging: SizedBox(
-            child: _showItemWhenCovered
-                ? widget.itemBuilder(context, _dataList[index], index)
-                : null,
+            child: _showItemWhenCovered ? widget.itemBuilder(context, _dataList[index], index) : null,
           ),
         );
       },
