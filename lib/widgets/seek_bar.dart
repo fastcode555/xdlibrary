@@ -181,7 +181,9 @@ class _SeekBarPainter extends CustomPainter {
   bool shouldRepaint(_SeekBarPainter old) {
     return value != old.value ||
         secondValue != old.secondValue ||
-        touchDown != old.touchDown;
+        touchDown != old.touchDown ||
+        barColor != old.barColor ||
+        progressColor != old.progressColor;
   }
 
   @override
@@ -196,10 +198,8 @@ class _SeekBarPainter extends CustomPainter {
 
     final Offset startPoint = Offset(thumbRadius!, centerY);
     final Offset endPoint = Offset(size.width - thumbRadius!, centerY);
-    final Offset progressPoint =
-        Offset(barLength * value! + thumbRadius!, centerY);
-    final Offset secondProgressPoint =
-        Offset(barLength * secondValue! + thumbRadius!, centerY);
+    final Offset progressPoint = Offset(barLength * value! + thumbRadius!, centerY);
+    final Offset secondProgressPoint = Offset(barLength * secondValue! + thumbRadius!, centerY);
 
     try {
       paint.color = barColor!;
