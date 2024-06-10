@@ -1,3 +1,7 @@
+## 1.2.0
+
+- to upgrade the new version
+
 ## 1.1.0
 
 - to remove the Platform,and to support the web

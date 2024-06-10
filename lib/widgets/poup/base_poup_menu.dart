@@ -144,7 +144,7 @@ class PopupMenusItemState<T, W extends PopupMenusItem<T>> extends State<W> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final PopupMenuThemeData popupMenusTheme = PopupMenuTheme.of(context);
-    TextStyle style = widget.textStyle ?? popupMenusTheme.textStyle ?? theme.textTheme.subtitle1!;
+    TextStyle style = widget.textStyle ?? popupMenusTheme.textStyle ?? theme.textTheme.titleMedium!;
 
     if (!widget.enabled) style = style.copyWith(color: theme.disabledColor);
 
